@@ -51,6 +51,21 @@ company_career_sites = dict(zip(glassdoor_companies, career_sites))
 df = pd.DataFrame.from_dict(company_career_sites, orient='index')
 df.columns=["Career page"]
 df.to_clipboard()
-#df.head()
-#df.to_csv('company_careers.csv', index=False, encoding= 'utf-8')
+df.head()
+df.to_csv('company_careers.csv', index=False, encoding= 'utf-8')
+
+for site in career_sites:
+    target_url = site
+
+    options= Options()
+    options.add_argument("-headless")
+    driver = webdriver.Firefox(options=options)
+    driver.get(target_url)
+
+    print(site)
+    #search_bar = driver.find_elements(By.CSS_SELECTOR, "[id*='search']")
+    #search_bar = driver.find_elements(By.XPATH, "//input[@type='text']")
+    search_bar = driver.find_elements(By.CSS_SELECTOR, "[type='text']")
+    for elem in search_bar:
+        print(elem.get_attribute("placeholder"))
     
