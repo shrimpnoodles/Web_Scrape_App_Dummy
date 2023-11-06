@@ -1,0 +1,41 @@
+import pandas as pd
+import pytesseract
+from PIL import Image
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.by import By
+from screenshot import Screenshot
+from IPython.display import display
+import nltk
+
+
+url1 = "https://www.amazon.jobs/"
+url2 = "https://www2.deloitte.com/us/en/careers/careers.html"
+url3 = "https://www.tcs.com/careers/united-states"
+
+options= Options()
+options.add_argument("-headless")
+driver = webdriver.Firefox(options=options)
+driver.get(url1)
+
+resp = driver.page_source
+
+soup = BeautifulSoup(resp, 'html.parser')
+#print(soup)
+
+#print(soup.get_text())
+
+#ss = Screenshot.Screenshot()
+#image = ss.full_screenshot(driver, save_path=r'.' , image_name='test.png')
+#image = Image.open("test.png")
+
+#text = pytesseract.image_to_string(image)
+#search_keywords = ["find", "search", "explore", "job", "career", "role"]
+
+#print(text)
+
+words = ['search', 'find', 'explore', 'career', 'role', 'job', 'opportunit', 'apply']
+
+test = driver.find_elements(By.XPATH, "//input[name*='search']")
+print(test)
